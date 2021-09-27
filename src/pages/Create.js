@@ -1,40 +1,49 @@
 import React, { useState } from "react";
-import { Typography, Button, Container, TextField } from "@mui/material";
+import {
+	Typography,
+	Button,
+	Container,
+	TextField,
+	Radio,
+	RadioGroup,
+	FormControlLabel,
+	FormLabel,
+	FormControl,
+} from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
-	field:{
+	field: {
 		marginTop: 20,
 		marginBottom: 20,
-		display: "block"
-	}
-})
-
+		display: "block",
+	},
+});
 
 export default function Create() {
-	
-	const [title, setTitle] = useState("")
-	const [details, setDetails] = useState("")
-	const [titleError, setTitleError] = useState(false)
-	const [detailsError, setDetailsError] = useState(false)
+	const [title, setTitle] = useState("");
+	const [details, setDetails] = useState("");
+	const [titleError, setTitleError] = useState(false);
+	const [detailsError, setDetailsError] = useState(false);
+	const [category, setCategory] = useState("money");
+
 	const handleSubmit = (e) => {
-		e.preventDefault()
+		e.preventDefault();
 		setTitleError(false);
 		setDetailsError(false);
-		if(title == ""){
+		if (title == "") {
 			setTitleError(true);
 		}
-		if(details == ""){
+		if (details == "") {
 			setDetailsError(true);
 		}
 
-		if(title && details){
-			console.log(title, details)
+		if (title && details) {
+			console.log(title, details, category);
 		}
-	}
+	};
 	const classes = useStyles();
-
 
 	return (
 		<Container>
@@ -48,9 +57,9 @@ export default function Create() {
 			</Typography>
 
 			<form noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<TextField 
+				<TextField
 					className={classes.field}
-					onChange={(e)=> setTitle(e.target.value)}
+					onChange={(e) => setTitle(e.target.value)}
 					variant="outlined"
 					label="Note Title"
 					color="secondary"
@@ -58,9 +67,9 @@ export default function Create() {
 					required
 					error={titleError}
 				/>
-				<TextField 
+				<TextField
 					className={classes.field}
-					onChange={(e)=> setDetails(e.target.value)}
+					onChange={(e) => setDetails(e.target.value)}
 					variant="outlined"
 					label="Details"
 					color="secondary"
@@ -70,12 +79,31 @@ export default function Create() {
 					required
 					error={detailsError}
 				/>
+				<FormControl className={classes.field}>
+					<FormLabel>Note Category</FormLabel>
+					<RadioGroup
+						value={category}
+						onChange={(e) => setCategory(e.target.value)}
+					>
+						<FormControlLabel control={<Radio />} label="Money" value="money" />
+						<FormControlLabel control={<Radio />} label="Todos" value="todos" />
+						<FormControlLabel
+							control={<Radio />}
+							label="Remineder"
+							value="reminders"
+						/>
+						<FormControlLabel control={<Radio />} label="Work" value="work" />
+					</RadioGroup>
+				</FormControl>
 				<Button
 					type="submit"
 					color="secondary"
 					variant="contained"
 					endIcon={<KeyboardArrowRightIcon />}
-				> Submit </Button>
+				>
+					{" "}
+					Submit{" "}
+				</Button>
 			</form>
 		</Container>
 	);

@@ -2,13 +2,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Notes from "./pages/Notes";
 import Create from "./pages/Create";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { teal } from "@mui/material/colors";
+import { red, teal } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
-    primary: {
-      main: "#fefefe"
-    }, 
+    primary:  red,
     secondary: teal
   }, 
   typography: {
