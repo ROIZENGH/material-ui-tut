@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { makeStyles } from "@mui/styles";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles({
 	field: {
@@ -28,6 +29,8 @@ export default function Create() {
 	const [detailsError, setDetailsError] = useState(false);
 	const [category, setCategory] = useState("money");
 
+	const history = useHistory()
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setTitleError(false);
@@ -41,6 +44,11 @@ export default function Create() {
 
 		if (title && details) {
 			console.log(title, details, category);
+			fetch("http://localhost:8000/notes", {
+				method: "POST",
+				headers: {"Content-type": "application/json"},
+				body: JSON.stringify({title, details, category})
+			}).then(()=> history.push("/"))
 		}
 	};
 	const classes = useStyles();
